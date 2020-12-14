@@ -1315,7 +1315,7 @@ def removeRec():
     choices = ["Yes", "No"]
     output = choicebox(msg, title, choices)
     if output == "Yes":
-        db_cursor.execute("DROP TABLE invoice, payment")
+        db_cursor.execute("DELETE FROM invoice_records, payment")
         db_connection.commit()
     if output == "No":
         main()
