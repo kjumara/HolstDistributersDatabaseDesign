@@ -317,12 +317,19 @@ def modifySalesRep():
     printTable("sales_rep_sales")
 
 def insertPart():
+    
+    db_cursor.execute("SELECT MAX(prtnum) FROM part")
+    strrow = str(db_cursor.fetchall())
+    str1 = strrow.split(',')
+    first = str1[0]
+    partnumber = int(first[2:]) + 1
+    
     msg = "Enter Part Information"
     title = "Add New Part"
-    fieldNames = ["Part ID", "Description", "Price", "Units On Hand", "Reorder Point"]
+    fieldNames = ["Description", "Price", "Units On Hand", "Reorder Point"]
     fieldValues = multenterbox(msg, title, fieldNames)
 
-    partnumber, partdescription, partprice, partunitsonhand, partreorderpoint = fieldValues
+    partdescription, partprice, partunitsonhand, partreorderpoint = fieldValues
 
     tsql = "INSERT INTO part VALUES (%s, %s, %s, 0, 0, %s, 0, %s)"
     val = (partnumber, partdescription, partprice, partunitsonhand, partreorderpoint)
@@ -335,22 +342,40 @@ def insertPart():
     printTable("part")
 
 def modifyPart():
-    db_cursor.execute("SELECT prtnum, prtdesc FROM part")
+    db_cursor.execute("SELECT prtdesc FROM part")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
     title = "Modify Part"
-    msg = str(db_cursor.fetchall())
-    dtext = "Enter number you wish to modify"
+    msg = "Select Part You Wish To Alter"
+    prtdesc = choicebox(msg, title, listb)
+    
+    tsql = "SELECT prtnum FROM part WHERE prtdesc='" + prtdesc + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    prtnum = myresult[0]
 
-    output = enterbox(msg, title, dtext)
-
-    msg = "Enter Part Information"
     title = "Update Part"
-    fieldNames = ["Description", "Price", "Units On Hand", "Reorder Point"]
-    fieldValues = multenterbox(msg, title, fieldNames)
-
-    desc, price, uoh, rp = fieldValues
+    msg = ["Desc", "Price", "Units On Hand", "Reorder Point"]
+    output = []
+    for msgs in msg:
+        msgs = msgs.replace(" ","")
+        db_cursor.execute("SELECT prt" + msgs + " FROM part WHERE prtnum=" + str(prtnum))
+        strforchoice = db_cursor.fetchall()
+        choice1 = enterbox(msgs, title, default=strforchoice[0])
+        output.append(choice1)
+    
+    desc, price, uoh, rp = output
 
     tsql = "UPDATE part SET prtdesc=%s, prtprice=%s, prtunitsonhand=%s, prtreorderpoint=%s WHERE(prtnum=%s)"
-    val = (desc, price, uoh, rp, output)
+    val = (desc, price, uoh, rp, prtnum)
     db_cursor.execute(tsql, val)
 
     db_connection.commit()
@@ -456,7 +481,7 @@ def alterTable(tblname):
         if tblname == "vendor":
             deleteFromTable("vnum", "vname", tblname)
         if tblname == "part":
-            deleteFromTable("prtnum", tblname)
+            deleteFromTable("prtnum", "prtdesc", tblname)
     if reply == "Return to Main Menu":
         main()
 
@@ -467,12 +492,32 @@ def newPayment():
     first = str1[0]
     fr = int(first[2:]) + 1
 
+    db_cursor.execute("SELECT cname FROM customer")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    title = "Make Payment"
+    msg = "Select Customer Making Payment"
+    cname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT cnum FROM customer WHERE cname='" + cname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    cid = myresult[0]
+    
     msg = "Enter Payment Information"
     title = "Add Payment"
-    fieldNames = ["Day", "Month", "Year", "Amount", "Customer ID"]
+    fieldNames = ["Day", "Month", "Year", "Amount"]
     fieldValues = multenterbox(msg, title, fieldNames)
 
-    dy, mth, yr, amt, cid = fieldValues
+    dy, mth, yr, amt = fieldValues
     date = yr + "-" + mth + "-" + dy
     print(date)
     
@@ -499,15 +544,70 @@ def enterOrder():
     strrow = str(db_cursor.fetchall())
     str1 = strrow.split(',')
     first = str1[0]    
-    fr = int(first[2:]) + 1
+    onum = int(first[2:]) + 1
+    
+    db_cursor.execute("SELECT cname FROM customer")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    title = "Enter Order"
+    msg = "Select Customer"
+    cname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT cnum FROM customer WHERE cname='" + cname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    cid = myresult[0]
+    
+    db_cursor.execute("SELECT prtdesc FROM part")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    title = "Enter Order"
+    msg = "Select Part"
+    prtdesc = choicebox(msg, title, listb)
+    
+    tsql = "SELECT prtnum FROM part WHERE prtdesc='" + prtdesc + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    prtnum = myresult[0]
+    
+    tsql = "SELECT PRTUNITSONHAND-PRTUNITSALLOCATED FROM part WHERE prtnum='" + str(prtnum) + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    partrange = myresult[0]
+    print(partrange)
+    
+    correctamount = False
+    msg = "Maximum Available: " + str(partrange)
+    listb = []
+    for x in range(partrange): listb.append(x)
+    
+    title = "Enter Order"
+    msg = "Select Amount of Parts"
+    prtamt = choicebox(msg, title, listb)
+    print(prtamt)
     
     msg = "Enter Order Information"
     title = "Add Order"
-    fieldNames = ["Day", "Month", "Year", "Order Number", "Description", "Customer ID", 
-                  "Part Number", "Amount of Parts"]
+    fieldNames = ["Day", "Month", "Year", "Description"]
     fieldValues = multenterbox(msg, title, fieldNames)
     
-    dy, mth, yr, onum, desc, cid, prtnum, prtamt = fieldValues
+    dy, mth, yr, desc = fieldValues
     
     tsql="SELECT prtnum, prtdesc, prtprice FROM part WHERE (prtnum= %s );"
     val = (prtnum,)
@@ -530,7 +630,7 @@ def enterOrder():
     
     date = yr + "-" + mth + "-" + dy
     
-    db_cursor.execute("SELECT MAX(ocustponum) FROM orders WHERE (customernum=" + cid + ")");
+    db_cursor.execute("SELECT MAX(ocustponum) FROM orders WHERE (customernum=" + str(cid) + ")");
     currentponum = str(db_cursor.fetchone())
     currentponum = currentponum[:3]
     currentponum = currentponum[1:]
