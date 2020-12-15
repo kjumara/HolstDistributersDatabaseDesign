@@ -820,31 +820,69 @@ def modifyVendor():
 
 
 def insertCustomer():
+    db_cursor.execute("SELECT tname FROM territory")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    title = "Add New Customer"
+    msg = "Select Territory For Customer"
+    tname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT tnum FROM territory WHERE tname='" + tname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    tnum = myresult[0]
+    
+    db_cursor.execute("SELECT srname FROM sales_rep WHERE TNO=" + str(tnum))
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    msg = "Select Sales Rep"
+    tname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT srnum FROM sales_rep WHERE srname='" + tname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    snum = myresult[0]
+    
     shipping = ynbox(msg='Is Shipping Address Different From Customer Address?',
                      title='Shipping Address', choices=('Yes', 'No'), image=None,
                      default_choice='Yes', cancel_choice='No')
 
     msg = "Enter Customer Information"
-    title = "Add New Customer"
 
     db_cursor.execute("SELECT MAX(cnum) FROM customer")
     cnum = db_cursor.fetchall()[0][0]+1
 
     if shipping:
         fieldnames = ["Name", "FL Address", "SL Address", "City", "State", "Zip", "FL Shipping Address",
-                      "SL Shipping Address", "Shipping City", "Shipping State", "Shipping Zip", "Territory Number",
-                      "Sales Rep Number", "Balance", "Credit Limit"]
+                      "SL Shipping Address", "Shipping City", "Shipping State", "Shipping Zip",
+                      "Balance", "Credit Limit"]
         output = multenterbox(msg, title, fieldnames)
 
 
-        name, faddr, saddr, city, st, zipc, sfaddr, ssaddr, scity, sst, szipc, tnum, snum, bal, cl = output
+        name, faddr, saddr, city, st, zipc, sfaddr, ssaddr, scity, sst, szipc, bal, cl = output
 
     else:
         fieldnames = ["Name", "FL Address", "SL Address", "City", "State", "Zip",
-                      "Territory Number", "Sales Rep Number", "Balance", "Credit Limit"]
+                      "Balance", "Credit Limit"]
         output = multenterbox(msg, title, fieldnames)
 
-        name, faddr, saddr, city, st, zipc, tnum, snum, bal, cl = output
+        name, faddr, saddr, city, st, zipc, bal, cl = output
         sfaddr = faddr
         ssaddr = saddr
         scity = city
@@ -891,17 +929,61 @@ def modifyCustomer():
 
     msg = "Enter Customer Information"
     title = "Update Customer"
-    messages = ["cname", "cfladdress","csladdress", "ccity", "cstate", "czip", "cstfladdress", "cstsladdress", "cstcity", "cststate", "cstzip", "territorynum", "salesrepno"]
+    messages = [["cname","Name"], ["cfladdress","First Line of Address"],
+                ["csladdress","Second Line of Address"], ["ccity","City"], 
+                ["cstate","State"], ["czip","Zip"], ["cstfladdress","First Line of Shipping Address"], 
+                ["cstsladdress","Second Line of Shipping Address"], ["cstcity", "Shipping Address City"], 
+                ["cststate","Shipping Address State"], ["cstzip","Shipping Address ZIP"]]
     output = []
     for msg in messages:
-        db_cursor.execute("SELECT " + msg + " FROM customer WHERE cnum=" + str(cnum))
+        db_cursor.execute("SELECT " + msg[0] + " FROM customer WHERE cnum=" + str(cnum))
         strforchoice = db_cursor.fetchall()
-        choice1 = enterbox(msg, "Modify Customer", default=strforchoice[0])
+        choice1 = enterbox(msg[1], "Modify Customer", default=strforchoice[0])
         output.append(choice1)
 
-    cname, cfladdress,csladdress, ccity, cstate, czip, cstfladdress, cstsladdress, cstcity, cststate, cstzip, territorynum, salesrepno = output
+    cname, cfladdress,csladdress, ccity, cstate, czip, cstfladdress, cstsladdress, cstcity, cststate, cstzip = output
+    
+    db_cursor.execute("SELECT tname FROM territory")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    title = "Modify Customer"
+    msg = "Select Territory For Customer"
+    tname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT tnum FROM territory WHERE tname='" + tname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    tnum = myresult[0]
+    
+    db_cursor.execute("SELECT srname FROM sales_rep WHERE TNO=" + str(tnum))
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    msg = "Select Sales Rep"
+    tname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT srnum FROM sales_rep WHERE srname='" + tname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    snum = myresult[0]
+    
     tsql = "UPDATE customer SET cname=%s, cfladdress=%s, csladdress=%s, ccity=%s, cstate =%s, czip=%s, cstfladdress=%s, cstsladdress=%s, cstcity=%s, cststate=%s, cstzip=%s, territorynum=%s, salesrepno=%s WHERE(cnum=%s)"
-    val = (cname, cfladdress, csladdress, ccity, cstate, czip, cstfladdress, cstsladdress, cstcity, cststate, cstzip, territorynum, salesrepno, cnum)
+    val = (cname, cfladdress, csladdress, ccity, cstate, czip, cstfladdress, cstsladdress, cstcity, cststate, cstzip, tnum, snum, cnum)
     db_cursor.execute(tsql, val)
 
     db_connection.commit()
@@ -915,13 +997,32 @@ def insertSalesRep():
     msg = "Enter Sales Rep Information"
     title = "Add New Sales Rep"
     fieldNames = ["Name", "Address", "City", "State", "ZIP",
-                  "Commission Rate", "Territory Number"]
+                  "Commission Rate"]
     fieldValues = multenterbox(msg, title, fieldNames)
-    srname, sraddr, srcity, srstate, srzip, srcomm, tnum = fieldValues
+    srname, sraddr, srcity, srstate, srzip, srcomm = fieldValues
 
     db_cursor.execute("SELECT MAX(srnum) FROM sales_rep")
     srint= db_cursor.fetchall()[0][0]+1
+    
+    db_cursor.execute("SELECT tname FROM territory")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
 
+    msg = "Select Territory for Sales Rep"
+    tname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT tnum FROM territory WHERE tname='" + tname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    tnum = myresult[0]
+    
     tsql = "INSERT INTO sales_rep_sales VALUES (%s,0,0,0,0,%s,%s)"
     val = (srint, float(srcomm), int(tnum),)
     db_cursor.execute(tsql, val)
@@ -938,7 +1039,7 @@ def insertSalesRep():
 
     db_connection.commit()
 
-    #print(db_cursor.rowcount, "record inserted.")
+    print(db_cursor.rowcount, "record inserted.")
 
     printTable("sales_rep_sales")
 
@@ -967,7 +1068,7 @@ def modifySalesRep():
 
     msg = "Enter Sales Rep Information"
     title = "Update Sales Rep"
-    messages = ["SRNAME", "SRADDRESS", "SRCITY", "SRSTATE", "SRZIP","TNO"]
+    messages = ["SRNAME", "SRADDRESS", "SRCITY", "SRSTATE", "SRZIP"]
     output = []
     for msg in messages:
         db_cursor.execute("SELECT " + msg + " FROM sales_rep WHERE srnum=" + str(srnum))
@@ -975,16 +1076,37 @@ def modifySalesRep():
         choice1 = enterbox(msg, "Modify Vendor", default=strforchoice[0])
         output.append(choice1)
 
-    SRNAME, SRADDRESS, SRCITY, SRSTATE, SRZIP,TNO = output
+    SRNAME, SRADDRESS, SRCITY, SRSTATE, SRZIP = output
+    
+    db_cursor.execute("SELECT tname FROM territory")
+    myresult = db_cursor.fetchall()
+    lista = str(myresult)
+    lista = lista.split("'")
+    count = 0
+    listb = []
+    for x in lista:
+        count += 1
+        if (count % 2 == 0):
+            listb.append(x)
+
+    title = "Modify Sales Rep"
+    msg = "Select Territory For Sales Rep"
+    tname = choicebox(msg, title, listb)
+    
+    tsql = "SELECT tnum FROM territory WHERE tname='" + tname + "'"
+    db_cursor.execute(tsql)
+    myresult = db_cursor.fetchone()
+    tnum = myresult[0]
+    
     tsql = "UPDATE sales_rep SET SRNAME=%s, SRADDRESS=%s, SRCITY=%s, SRSTATE=%s, SRZIP=%s, TNO=%s WHERE(srnum=%s)"
-    val = (SRNAME, SRADDRESS, SRCITY, SRSTATE, SRZIP,TNO, srnum)
+    val = (SRNAME, SRADDRESS, SRCITY, SRSTATE, SRZIP,tnum, srnum)
     db_cursor.execute(tsql, val)
 
     db_connection.commit()
 
     print(db_cursor.rowcount, "record updated.")
 
-    printTable("vendor")
+    printTable("sales_rep")
 
 
 def insertPart():
@@ -1041,7 +1163,7 @@ def modifyPart():
         msgs = msgs.replace(" ","")
         db_cursor.execute("SELECT prt" + msgs + " FROM part WHERE prtnum=" + str(prtnum))
         strforchoice = db_cursor.fetchall()
-        choice1 = enterbox(msgs, title, default=strforchoice[0])
+        choice1 = enterbox(msgs, title, strforchoice[0])
         output.append(choice1)
     
     desc, price, uoh, rp = output
@@ -1219,20 +1341,6 @@ def enterOrder():
     db_cursor.execute("SELECT MAX(onum) FROM orders")
     strrow = str(db_cursor.fetchall())
     str1 = strrow.split(',')
-<<<<<<< HEAD
-    first = str1[0]
-    fr = int(first[2:]) + 1
-
-    msg = "Enter Order Information"
-    title = "Add Order"
-    fieldNames = ["Day", "Month", "Year", "Order Number", "Description", "Customer ID",
-                  "Part Number", "Amount of Parts"]
-    fieldValues = multenterbox(msg, title, fieldNames)
-
-    dy, mth, yr, onum, desc, cid, prtnum, prtamt = fieldValues
-
-    tsql = "SELECT prtnum, prtdesc, prtprice FROM part WHERE (prtnum= %s );"
-=======
     first = str1[0]    
     onum = int(first[2:]) + 1
     
@@ -1300,17 +1408,16 @@ def enterOrder():
     dy, mth, yr, desc = fieldValues
     
     tsql="SELECT prtnum, prtdesc, prtprice FROM part WHERE (prtnum= %s );"
->>>>>>> main
     val = (prtnum,)
     db_cursor.execute(tsql, val)
     allfields = db_cursor.fetchone()
     partnumber, partdesc, price = allfields
     prices = "$" + str(price)
-
+    
     title = "Confirm Price Per Unit"
-    msg = "Part Number: " + str(partnumber) + "\nDescription: " + partdesc
+    msg = "Part Number: " + str(partnumber) + "\nDescription: " + partdesc 
     msg = msg + "\nPrice : " + prices + "\n\n\nIs this the Quoted Price?"
-
+    
     quoted = ynbox(msg, title)
     if quoted:
         qtdprice = float(price)
@@ -1318,15 +1425,10 @@ def enterOrder():
         title = "Quoted Price"
         msg = "Enter Quoted Price"
         qtdprice = float(enterbox(msg, title, price))
-
+    
     date = yr + "-" + mth + "-" + dy
-<<<<<<< HEAD
-
-    db_cursor.execute("SELECT MAX(ocustponum) FROM orders WHERE (customernum=" + cid + ")");
-=======
     
     db_cursor.execute("SELECT MAX(ocustponum) FROM orders WHERE (customernum=" + str(cid) + ")");
->>>>>>> main
     currentponum = str(db_cursor.fetchone())
     currentponum = currentponum[:3]
     currentponum = currentponum[1:]
@@ -1334,21 +1436,21 @@ def enterOrder():
         nextponum = 1
     else:
         nextponum = int(currentponum) + 1
-
+    
     ordertotal = qtdprice * float(prtamt)
     tsql = "INSERT INTO orders VALUES (%s, %s, %s, %s, %s, 0, %s)"
     val = (onum, date, desc, nextponum, ordertotal, cid)
     db_cursor.execute(tsql, val)
-
+    
     db_connection.commit()
-
+    
     tsql = "INSERT INTO orderhaspart VALUES (%s, %s, %s, %s)"
     val = (onum, partnumber, prtamt, qtdprice)
     db_cursor.execute(tsql, val)
-
+    
     db_connection.commit()
     printTable("orderhaspart")
-
+    
     tsql = "UPDATE part SET prtunitsallocated=(prtunitsallocated+%s) WHERE(prtnum=%s)"
     val = (prtamt, partnumber)
     db_cursor.execute(tsql, val)

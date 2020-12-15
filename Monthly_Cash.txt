@@ -1,0 +1,31 @@
+11        HOLT DISTRIBUTORS DAILY CASH RECIEPTS
+|   Payment No. |   Customer Number | Customer Name     |   Payment Amount |
+|---------------|-------------------|-------------------|------------------|
+|             1 |                 2 | Rama Sharp        |            36.96 |
+|             2 |                14 | Ulysses Donaldson |            13.43 |
+|             3 |                 7 | Ulric Pena        |            54.29 |
+|             4 |                 9 | Benjamin Powell   |            32.14 |
+|             5 |                 7 | Ulric Pena        |            95.83 |
+|             6 |                 4 | Ina Keller        |            84.72 |
+|             7 |                18 | Amelia Mendoza    |            36.10 |
+|             8 |                 1 | Echo Albert       |            24.37 |
+|             9 |                 8 | Colette Hardy     |            12.54 |
+|            10 |                15 | Kylan Leon        |            87.60 |
+|            11 |                11 | Avye Simpson      |             3.36 |
+|            12 |                11 | Avye Simpson      |            50.01 |
+|            13 |                 1 | Echo Albert       |            40.96 |
+|            14 |                10 | Chaney Bryant     |            53.80 |
+|            15 |                 6 | Roth Guthrie      |            46.09 |
+|            16 |                17 | Tyrone Petty      |            68.04 |
+|            17 |                10 | Chaney Bryant     |             2.94 |
+|            18 |                19 | Cairo Pruitt      |             7.60 |
+|            19 |                 5 | Igor Berry        |            28.18 |
+|            20 |                 5 | Igor Berry        |            18.11 |
+3        HOLT DISTRIBUTORS DAILY CASH RECIEPTS
+|   Payment No. |   Customer Number | Customer Name   |   Payment Amount |
+|---------------|-------------------|-----------------|------------------|
+|            21 |                11 | Avye Simpson    |            19.99 |
+12        HOLT DISTRIBUTORS DAILY CASH RECIEPTS
+|   Payment No. |   Customer Number | Customer Name     |   Payment Amount |
+|---------------|-------------------|-------------------|------------------|
+|            22 |                14 | Ulysses Donaldson |           100.00 |
