@@ -1,0 +1,140 @@
+Vendor Number: 1
+Vendor Name: Sullivan Douglas
+Address: 12 Clover ,Neptune
+Kentucky,13894
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               1 |             7 |     9.79 |                 31 |             3 |
+Vendor Number: 2
+Vendor Name: Ava Dixon
+Address: 64 Hill ,Rochester
+New Jersey,34523
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               2 |             4 |    28.95 |                 96 |            43 |
+Vendor Number: 3
+Vendor Name: Lila Ahmad
+Address: 224 Sherwood ,Florence
+California,35263
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               3 |             5 |    15.37 |                 86 |             8 |
+Vendor Number: 4
+Vendor Name: Ronny Ward
+Address: 1 Henry ,Flint
+Georgia,34812
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               4 |             2 |    90.02 |                 41 |             8 |
+Vendor Number: 5
+Vendor Name: Atlanta Strong
+Address: 212 Spade ,Rochester
+New Jersey,39831
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               5 |             1 |     4.00 |                 47 |            20 |
+Vendor Number: 6
+Vendor Name: Miguel Patrick
+Address: 234 Sunset ,Florence
+California,23485
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               6 |             6 |    49.91 |                 13 |            23 |
+Vendor Number: 7
+Vendor Name: Elouise Clark
+Address: 98 Addison ,Savannah
+New York,48571
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               7 |             6 |    37.56 |                 23 |             7 |
+Vendor Number: 8
+Vendor Name: Evie-Grace Bourne
+Address: 214 Mad ,Woodside
+Florida,94521
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               8 |             7 |    38.06 |                 76 |            14 |
+Vendor Number: 9
+Vendor Name: Maria Little
+Address: 2842 Marshfield ,Florence
+Kansas,90372
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|               9 |             7 |    77.63 |                 12 |             2 |
+Vendor Number: 10
+Vendor Name: Orion Redfern
+Address: 83 Heart ,Flint
+California,13471
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              10 |             8 |    73.99 |                 30 |            16 |
+Vendor Number: 11
+Vendor Name: Vera Mckenna
+Address: 98 Pilgrin ,Neptune
+Georgia,89345
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              11 |             3 |    37.03 |                 14 |            23 |
+Vendor Number: 12
+Vendor Name: Eve Steele
+Address: 64 Fifth ,Woodside
+Florida,43572
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              12 |             5 |    63.19 |                 81 |            16 |
+Vendor Number: 13
+Vendor Name: Opal Southern
+Address: 3 Lakeshore ,Florence
+California,23573
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              13 |             1 |     4.84 |                 64 |            13 |
+Vendor Number: 14
+Vendor Name: Reece Munro
+Address: 21 Diamond ,Flint
+Georgia,30841
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              14 |             6 |    34.65 |                 76 |            15 |
+Vendor Number: 15
+Vendor Name: Gladys Holland
+Address: 55 Hillside ,Lexington
+Florida,32456
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              15 |             5 |    58.71 |                 86 |            35 |
+Vendor Number: 16
+Vendor Name: Beck Mcphee
+Address: 245 French ,Rochester
+New Jersey,84352
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              16 |             9 |    89.61 |                  5 |            33 |
+Vendor Number: 17
+Vendor Name: Kevin Blue
+Address: 93 Seventh ,Lexington
+Kansas,12464
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              17 |             7 |    71.90 |                 65 |             7 |
+Vendor Number: 18
+Vendor Name: Brook Dalton
+Address: 12 Forrest ,Savannah
+New York,12453
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              18 |            11 |    90.70 |                 12 |            38 |
+Vendor Number: 19
+Vendor Name: Sebastien Gay
+Address: 832 Amethyst ,Neptune
+New Jersey,18034
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              19 |            15 |    37.78 |                 66 |            17 |
+Vendor Number: 20
+Vendor Name: Denzel Taylor
+Address: 82 First ,Savannah
+New York,12455
+|   Vendor Number |   Part Number |   VPRICE |   Mininum Quantity |   Expected By |
+|-----------------|---------------|----------|--------------------|---------------|
+|              20 |             5 |    16.81 |                 39 |             9 |
